@@ -1,0 +1,15 @@
+{% extends 'blog/base.html' %}
+{% block title %} Frontpage - Blog {% endblock %}
+{% block content %}
+<h1>Front page</h1>
+<ul>
+    {% for post in posts %}
+        <li>
+            <ul>
+                <li>{{post.title}}</li>
+                <li>{{post.author}}</li>
+                <li>{{post.created}}</li>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

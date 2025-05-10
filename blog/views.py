@@ -1,5 +1,7 @@
-from django.shortcuts import HttpResponse
+from django.shortcuts import render
+from .models import BlogPost, Comment
 
 # Create your views here.
 def index(request):
-    return HttpResponse('error 404')
+    posts = BlogPost.objects.all().order_by('-created')
+    return render(request, 'blog/index.html', {'posts' : posts})
