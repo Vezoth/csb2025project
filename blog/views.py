@@ -21,5 +21,5 @@ def login_user(request):
             login(request, user)
             return redirect('/')
         else:
-            return render(request, 'blog/login.html', {'error' : 'Invalid username or password'})
+            return render(request, 'blog/login.html', {'error' : 'Invalid username or password.'})
     return render(request, 'blog/login.html')

@@ -1,0 +1,19 @@
+{% extends 'blog/base.html' %}
+{% block title %} Login - Blog {% endblock %}
+{% block content %}
+<form action="" method="POST">
+    {% csrf_token %}
+    <div>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required />
+    </div>
+    <div>
+        <label for="username">Password:</label>
+        <input type="password" id="password" name="password" required />
+    </div>
+    <input type="submit" value="Login" />
+    {% if error %}
+    <p class="error">{{ error }}</p>
+    {% endif %}
+</form>
+{% endblock %}
