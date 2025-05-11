@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse, redirect
+from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from .models import BlogPost, Comment
 from django.contrib.auth import logout, login, authenticate
 
@@ -23,3 +23,8 @@ def login_user(request):
         else:
             return render(request, 'blog/login.html', {'error' : 'Invalid username or password.'})
     return render(request, 'blog/login.html')
+
+def post(request, blogpk):
+    blogpost = get_object_or_404(BlogPost, pk=blogpk)
+    comments = Comment.objects.filter(post=blogpost)
+    return render(request, 'blog/blogpost.html', {'blogpost' : blogpost, 'comments' : comments})
