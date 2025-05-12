@@ -24,7 +24,7 @@ def login_user(request):
             return render(request, 'blog/login.html', {'error' : 'Invalid username or password.'})
     return render(request, 'blog/login.html')
 
-def post(request, blogpk):
+def blogpost_view(request, blogpk):
     blogpost = get_object_or_404(BlogPost, pk=blogpk)
     comments = Comment.objects.filter(post=blogpost)
     return render(request, 'blog/blogpost.html', {'blogpost' : blogpost, 'comments' : comments})

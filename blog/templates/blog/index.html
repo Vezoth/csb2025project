@@ -6,7 +6,7 @@
     {% for post in posts %}
         <li>
             <ul>
-                <li>{{post.title}}</li>
+                <li><a href="{% url 'postview' post.pk %}">{{post.title}}</a></li>
                 <li>{{post.author}}</li>
                 <li>{{post.created}}</li>
         </li>

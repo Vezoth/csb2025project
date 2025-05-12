@@ -7,6 +7,15 @@
     <p>by {{blogpost.author}}</p>
     <p>Posted on {{blogpost.created}}</p>
 </main>
+{% if user.is_authenticated %}
+<form action="" method="POST">
+    {% csrf_token %}
+    <textarea required></textarea>
+    <input type="submit" value="Comment" />
+</form>
+{% else %}
+    <p>You must login to comment</p>
+{% endif %}
 <div>
     {% for comment in comments %}
     <div>
