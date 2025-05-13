@@ -1,0 +1,22 @@
+{% extends 'blog/base.html' %}
+{% block title %} New post - Blog {% endblock %}
+{% block content %}
+<form action="" method="POST">
+    {% csrf_token %}
+    <label for="title">Title:</label>
+    {% if blogpost %}
+    <input type="text" required name="title" id="title" placeholder="Blog title" value="{{blogpost.title}}"/>
+    <label for="content">Post content:</label>
+    <textarea required name="content" id="content">{{blogpost.content}}</textarea>
+    {% else %}
+    <input type="text" required name="title" id="title" placeholder="Blog title" />
+    <label for="content">Post content:</label>
+    <textarea required name="content" id="content"></textarea>
+    {% endif %}
+    <input type="submit" value="Save"/>
+</form>
+{%if error %}
+<p>{{error}}</p>
+{% endif %}
+
+{% endblock %}

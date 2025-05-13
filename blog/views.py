@@ -13,7 +13,6 @@ def logout_view(request):
 
 def login_user(request):
     if request.method == 'POST':
-        print(request.POST)
         username = request.POST["username"]
         password = request.POST["password"]
         user = authenticate(request, username=username, password=password)
@@ -33,7 +32,23 @@ def deletepost(request, blogpk):
     return render('/')
 
 def editpost(request, blogpk):
-    return render('/')
+    if blogpk:
+        blogpost = get_object_or_404(BlogPost, pk=blogpk)
+    else:
+        blogpost = None
+    
+    if request.method == 'POST':
+        title = request.POST['title']
+        content = request.POST['content']
+        if blogpost:    
+            blogpost.title = title
+            blogpost.content = content
+        else:
+            blogpost = BlogPost(title=title, content=content, author=request.user)
+        blogpost.save()
+        return redirect('postview', blogpk=blogpost.pk)
+    
+    return render(request, 'blog/neweditblog.html', {'blogpost' : blogpost})
 
-def deletecomment(request, commentpk):
+def deletecomment(request, blogpk, commentpk):
     return render('/')
