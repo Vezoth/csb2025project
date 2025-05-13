@@ -7,8 +7,12 @@
     <p>by {{blogpost.author}}</p>
     <p>Posted on {{blogpost.created}}</p>
     {% if user == blogpost.author %}
-    <a href="{% url 'editpost' blogpost.pk %}">Edit post</a>
-    <a href="{% url 'deletepost' blogpost.pk %}">Delete post</a>
+    <a href="{% url 'editpost' blogpost.pk %}" id="editpost">Edit post</a>
+    <a href="{% url 'deletepost' blogpost.pk %}" id="deletepost">Delete post</a>
+    <dialog>
+        <button autofocus>Cancel</button>
+        <button>Delete</button>
+    </dialog>
     {% endif %}
 </main>
 {% if user.is_authenticated %}

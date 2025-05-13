@@ -29,26 +29,32 @@ def blogpost_view(request, blogpk):
     return render(request, 'blog/blogpost.html', {'blogpost' : blogpost, 'comments' : comments})
 
 def deletepost(request, blogpk):
-    return render('/')
+    blogpost = get_object_or_404(BlogPost, pk=blogpk)
+    
+    if request.user != blogpost.author:
+        return redirect('/')
+    
+    blogpost.delete()
+
+    return redirect('/')
 
 def editpost(request, blogpk):
     if blogpk:
         blogpost = get_object_or_404(BlogPost, pk=blogpk)
     else:
         blogpost = None
-    
+
     if request.method == 'POST':
         title = request.POST['title']
         content = request.POST['content']
-        if blogpost:    
+        if blogpost:
             blogpost.title = title
             blogpost.content = content
         else:
             blogpost = BlogPost(title=title, content=content, author=request.user)
         blogpost.save()
         return redirect('postview', blogpk=blogpost.pk)
-    
-    return render(request, 'blog/neweditblog.html', {'blogpost' : blogpost})
 
+    return render(request, 'blog/neweditblog.html', {'blogpost' : blogpost})
 def deletecomment(request, blogpk, commentpk):
     return render('/')
