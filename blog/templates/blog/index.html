@@ -4,6 +4,11 @@
 <h1>Front page</h1>
 <a href="{% url 'newpost'%}">Create new post</a>
 <h2>Posts:</h2>
+<form action="" method="GET">
+    <label for="search">Search article:</label>
+    <input type="text" name="search" id="search" />
+    <input type="submit" value="Search" />
+</form>
 <ul>
     {% for post in posts %}
         <li>

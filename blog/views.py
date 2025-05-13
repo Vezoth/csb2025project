@@ -5,7 +5,12 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def index(request):
-    posts = BlogPost.objects.all().order_by('-created')
+    search = request.GET.get('search', '')
+    if search:
+        query = "SELECT * FROM blog_blogpost WHERE title LIKE '%%%s%%' ORDER BY created DESC" % search
+        posts = BlogPost.objects.raw(query)
+    else:
+        posts = BlogPost.objects.all().order_by('-created')
     return render(request, 'blog/index.html', {'posts' : posts})
 
 @login_required
