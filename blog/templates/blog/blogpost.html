@@ -6,6 +6,10 @@
     <p>{{blogpost.content}}</p>
     <p>by {{blogpost.author}}</p>
     <p>Posted on {{blogpost.created}}</p>
+    {% if user == blogpost.author %}
+    <a href="{% url 'editpost' blogpost.pk %}">Edit post</a>
+    <a href="{% url 'deletepost' blogpost.pk %}">Delete post</a>
+    {% endif %}
 </main>
 {% if user.is_authenticated %}
 <form action="" method="POST">
@@ -19,9 +23,11 @@
 <div>
     {% for comment in comments %}
     <div>
-        <p>
         <p>{{comment.author}} commented on {{comment.created}}:</p>
         <p>{{comment.content}}</p>
+        {% if user == comment.author %}
+        <a href="{% url 'deletecomment' blogpost.pk comment.pk %}">Delete comment</a>
+        {% endif %}
     </div>
     {% endfor %}
 </div>

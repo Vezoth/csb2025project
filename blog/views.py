@@ -28,3 +28,12 @@ def blogpost_view(request, blogpk):
     blogpost = get_object_or_404(BlogPost, pk=blogpk)
     comments = Comment.objects.filter(post=blogpost)
     return render(request, 'blog/blogpost.html', {'blogpost' : blogpost, 'comments' : comments})
+
+def deletepost(request, blogpk):
+    return render('/')
+
+def editpost(request, blogpk):
+    return render('/')
+
+def deletecomment(request, commentpk):
+    return render('/')
