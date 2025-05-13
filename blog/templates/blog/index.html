@@ -2,6 +2,8 @@
 {% block title %} Frontpage - Blog {% endblock %}
 {% block content %}
 <h1>Front page</h1>
+<a href="{% url 'newpost'%}">Create new post</a>
+<h2>Posts:</h2>
 <ul>
     {% for post in posts %}
         <li>

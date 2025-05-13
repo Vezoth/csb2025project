@@ -9,11 +9,12 @@
     {% if user == blogpost.author %}
     <a href="{% url 'editpost' blogpost.pk %}" id="editpost">Edit post</a>
     <a href="{% url 'deletepost' blogpost.pk %}" id="deletepost">Delete post</a>
+    {% endif %}
     <dialog>
         <button autofocus>Cancel</button>
         <button>Delete</button>
     </dialog>
-    {% endif %}
+
 </main>
 {% if user.is_authenticated %}
 <form action="" method="POST">
