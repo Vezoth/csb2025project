@@ -1,0 +1,17 @@
+{% extends 'blog/base.html' %}
+{% block title %} Settings - Blog {% endblock %}
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    <h1>Update password</h1>
+    <label for="newpassword">New password:</label>
+    <input type="password" required name="newpassword" id="newpassword"/>
+    <input type="submit" value="Update"/>
+    {% if msg %}
+    <p class="msg">{{msg}}</p>
+    {% endif%}
+    {% if error %}
+    <p class="error">{{error}}</p>
+    {% endif%}
+</form>
+{% endblock %}

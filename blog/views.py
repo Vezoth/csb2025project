@@ -18,7 +18,24 @@ def logout_view(request):
     logout(request)
     return redirect('/')
 
+@login_required
+def settings(request):
+    if request.method == 'POST':
+        # oldpassword = request.POST.get('oldpassword', '')
+        # if not request.user.check_password(oldpassword):
+        # if not user.check_password(oldpassword):
+        #    return render(request, 'blog/usersettings.html', {'error': 'Old password is incorrect.'})
+        newpassword = request.POST.get('newpassword', '')
+        if not newpassword:
+            return render(request, 'blog/usersettings.html', {'error' : 'New password is invalid.'})
+        user = request.user
+        user.set_password(newpassword)
+        user.save()
+        return render(request, 'blog/usersettings.html', {'msg' : 'Password has bee updated.'})
+    return render(request, 'blog/usersettings.html')
 
+def register(request):
+    return redirect('/')
 
 def blogpost_view(request, blogpk):
     blogpost = get_object_or_404(BlogPost, pk=blogpk)
