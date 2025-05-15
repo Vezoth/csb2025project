@@ -96,6 +96,7 @@ def deletepost(request, blogpk):
 
 @login_required
 def editpost(request, blogpk):
+    errors = []
     blogpost = get_object_or_404(BlogPost, pk=blogpk)
 
     # if request.user != blogpost.author:
@@ -107,21 +108,37 @@ def editpost(request, blogpk):
         
         blogpost.title = title
         blogpost.content = content
-        blogpost.save()
-        return redirect('postview', blogpk=blogpost.pk)
+        errors = problems_in_blog(blogpost)
+        if not errors:
+            blogpost.save()
+            return redirect('postview', blogpk=blogpost.pk)
 
-    return render(request, 'blog/neweditblog.html', {'blogpost' : blogpost})
+    return render(request, 'blog/neweditblog.html', {'blogpost' : blogpost, 'errors' : errors})
 
 @login_required
 def newpost(request):
+    errors = []
     if request.method == 'POST':
         title = request.POST['title']
-        content = request.POST['content']  
+        content = request.POST['content'] 
         blogpost = BlogPost(title=title, content=content, author=request.user)
+        # errors = problems_in_blog(blogpost)
+        # if not errors:
+        #     blogpost.save()
+        #     return redirect('postview', blogpk=blogpost.pk)
         blogpost.save()
         return redirect('postview', blogpk=blogpost.pk)
-    return render(request, 'blog/neweditblog.html')
+    return render(request, 'blog/neweditblog.html', {'errors' : errors})
 
 @login_required
 def deletecomment(request, blogpk, commentpk):
     return redirect('/')
+
+
+def problems_in_blog(blog):
+    errors = []
+    if len(blog.title) < 3:
+        errors.append('Title must be at least 3 characters.')
+    if len(blog.content) < 10:
+        errors.append('Content must be at least 10 characters')
+    return errors
