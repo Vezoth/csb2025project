@@ -1,6 +1,9 @@
 from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from .models import BlogPost, Comment
-from django.contrib.auth import logout, login, authenticate
+from django.contrib.auth import logout, login
+from django.contrib.auth.models import User
+from django.contrib.auth.password_validation import validate_password
+from django.core.exceptions import ValidationError
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -9,6 +12,10 @@ def index(request):
     if search:
         query = "SELECT * FROM blog_blogpost WHERE title LIKE '%%%s%%' ORDER BY created DESC" % search
         posts = BlogPost.objects.raw(query)
+        # query = "SELECT * FROM blog_blogpost WHERE title LIKE %s ORDER BY created DESC"
+        # posts = BlogPost.objects.raw(query, [f"%{query}%"])
+        #### OR ####
+        # posts = BlogPost.objects.filter(title__icontains=search).order_by('-created')
     else:
         posts = BlogPost.objects.all().order_by('-created')
     return render(request, 'blog/index.html', {'posts' : posts})
@@ -28,6 +35,10 @@ def settings(request):
         newpassword = request.POST.get('newpassword', '')
         if not newpassword:
             return render(request, 'blog/usersettings.html', {'error' : 'New password is invalid.'})
+        try:
+            validate_password(newpassword)
+        except ValidationError as e:
+            return render(request, 'blog/usersettings.html', {'error': e.messages})
         user = request.user
         user.set_password(newpassword)
         user.save()
@@ -35,7 +46,37 @@ def settings(request):
     return render(request, 'blog/usersettings.html')
 
 def register(request):
-    return redirect('/')
+    if request.method == 'POST':
+        password = request.POST.get('password', '')
+        passwordcheck = request.POST.get('passwordcheck', '')
+        username = request.POST.get('username', '')
+
+        context = {
+            'username' : username,
+            'password' : password,
+            'passwordcheck' : passwordcheck,
+            'error' : []
+        }
+        if password != passwordcheck:
+            context['error'].append('Passwords do not match.')
+        try:
+            validate_password(password)
+        except ValidationError as e:
+            for msg in e.messages:
+                context['error'].append(msg)
+        
+        if User.objects.filter(username=username).exists():
+            context['error'].append('Username already taken.')
+        
+        if context['error']:
+            return render(request, 'blog/register.html', context)
+
+        user = User.objects.create_user(username=username, password=password)
+        user.save()
+        login(request, user)
+        return redirect('/')
+
+    return render(request, 'blog/register.html')
 
 def blogpost_view(request, blogpk):
     blogpost = get_object_or_404(BlogPost, pk=blogpk)

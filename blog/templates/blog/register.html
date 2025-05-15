@@ -1,5 +1,5 @@
 {% extends 'blog/base.html' %}
-{% block title %} Login - Blog {% endblock %}
+{% block title %} Register - Blog {% endblock %}
 {% block content %}
 <form action="" method="POST">
     {% csrf_token %}
@@ -11,10 +11,14 @@
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required />
     </div>
-    <input type="submit" value="Login" />
+    <div>
+        <label for="passwordcheck">Retype password:</label>
+        <input type="password" id="passwordcheck" name="passwordcheck" required />
+    </div>
+    <input type="submit" value="Register" />
     {% if error %}
         {% for e in error %}
-        <p class="error">{{ e }}</p>
+            <p class="error">{{ e }}</p>
         {% endfor %}
     {% endif %}
 </form>
