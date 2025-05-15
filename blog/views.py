@@ -1,5 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from .models import BlogPost, Comment
+from django.db import connection
 from django.contrib.auth import logout, login
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
@@ -10,9 +11,17 @@ from django.contrib.auth.decorators import login_required
 def index(request):
     search = request.GET.get('search', '')
     if search:
-        query = "SELECT * FROM blog_blogpost WHERE title LIKE '%%%s%%' ORDER BY created DESC" % search
-        posts = BlogPost.objects.raw(query)
-        # query = "SELECT * FROM blog_blogpost WHERE title LIKE %s ORDER BY created DESC"
+        query = "SELECT title, author_id, created, id FROM blog_blogpost WHERE title LIKE '%%%s%%' ORDER BY created DESC" % search
+        with connection.cursor() as cursor:
+            cursor.execute(query)
+            posts = [{'title' : row[0],
+                      'author_id' : row[1],
+                      'created' : row[2],
+                      'pk' : row[3]} 
+                      for row in cursor.fetchall()]
+            for post in posts:
+                post['author'] = User.objects.get(pk=post['author_id'])
+        # query = "SELECT id FROM blog_blogpost WHERE title LIKE %s ORDER BY created DESC"
         # posts = BlogPost.objects.raw(query, [f"%{query}%"])
         #### OR ####
         # posts = BlogPost.objects.filter(title__icontains=search).order_by('-created')
