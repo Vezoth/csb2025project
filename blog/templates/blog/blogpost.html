@@ -19,7 +19,7 @@
 {% if user.is_authenticated %}
 <form action="" method="POST">
     {% csrf_token %}
-    <textarea required></textarea>
+    <textarea required name="comment"></textarea>
     <input type="submit" value="Comment" />
 </form>
 {% else %}
