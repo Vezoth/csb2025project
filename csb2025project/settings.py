@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'axes',
+    'axes',
 ]
 
 MIDDLEWARE = [
@@ -49,11 +49,14 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'axes.middleware.AxesMiddleware',
+    'axes.middleware.AxesMiddleware',
 ]
 
-# AXES_FAILURE_LIMIT = 5
-# AXES_COOLOFF_TIME = 0.5
+AXES_FAILURE_LIMIT = 5
+AXES_COOLOFF_TIME = 0.5
+AXES_RESET_ON_SUCCESS = False
+AXES_LOCKOUT_PARAMETERS = ["username"]
+
 ROOT_URLCONF = 'csb2025project.urls'
 
 TEMPLATES = [

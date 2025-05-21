@@ -6,7 +6,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 from django.contrib.auth.decorators import login_required
-# from axes.decorators import axes_dispatch
 
 # Create your views here.
 def index(request):
@@ -101,8 +100,7 @@ def blogpost_view(request, blogpk):
             post=blogpost,
             content=content)
         comment.save()
-    return render(request, 'blog/blogpost.html', {'blogpost' : blogpost, 'comments' : comments})
-        
+    return render(request, 'blog/blogpost.html', {'blogpost' : blogpost, 'comments' : comments})  
 
 @login_required
 def deletepost(request, blogpk):
