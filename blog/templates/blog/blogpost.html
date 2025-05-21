@@ -31,7 +31,7 @@
         <p>{{comment.author}} commented on {{comment.created}}:</p>
         <p>{{comment.content}}</p>
         {% if user == comment.author %}
-        <a href="{% url 'deletecomment' blogpost.pk comment.pk %}">Delete comment</a>
+        <a href="{% url 'deletecomment' blogpost.pk %}?delc={{comment.pk}}">Delete comment</a>
         {% endif %}
     </div>
     {% endfor %}

@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
 
 # Create your views here.
 def index(request):
@@ -119,7 +120,7 @@ def editpost(request, blogpk):
     blogpost = get_object_or_404(BlogPost, pk=blogpk)
 
     # if request.user != blogpost.author:
-    #     redirect('/')
+    #     raise PermissionDenied
 
     if request.method == 'POST':
         title = request.POST['title']
@@ -150,8 +151,21 @@ def newpost(request):
     return render(request, 'blog/neweditblog.html', {'errors' : errors})
 
 @login_required
-def deletecomment(request, blogpk, commentpk):
-    return redirect('/')
+def deletecomment(request, blogpk):
+    blogpost = get_object_or_404(BlogPost, pk=blogpk)
+    commentpk = request.GET.get('delc')
+    comment = get_object_or_404(Comment, pk=commentpk)
+    if request.user != comment.author:
+        raise PermissionDenied
+    confirm = request.GET.get('confirm')
+    print(commentpk)
+    print(confirm)
+    if confirm is not None:
+        comment.delete()
+        print("here")
+        return redirect('postview', blogpk=blogpk)
+
+    return render(request, 'blog/confirmdelete.html', {'blogpost': blogpost, 'comment' : comment})
 
 
 def problems_in_blog(blog):
