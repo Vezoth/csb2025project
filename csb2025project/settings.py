@@ -52,10 +52,15 @@ MIDDLEWARE = [
     'axes.middleware.AxesMiddleware',
 ]
 
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'axes.backends.AxesStandaloneBackend',
+]
+
 AXES_FAILURE_LIMIT = 5
 AXES_COOLOFF_TIME = 0.5
 AXES_RESET_ON_SUCCESS = False
-AXES_LOCKOUT_PARAMETERS = ["username"]
+AXES_LOCKOUT_PARAMETERS = [["username", "ip_address"]]
 
 ROOT_URLCONF = 'csb2025project.urls'
 
