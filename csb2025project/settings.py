@@ -49,18 +49,17 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'axes.middleware.AxesMiddleware',
+#    'axes.middleware.AxesMiddleware',
 ]
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
-    'axes.backends.AxesStandaloneBackend',
+#    'axes.backends.AxesStandaloneBackend',
 ]
 
-AXES_FAILURE_LIMIT = 5
-AXES_COOLOFF_TIME = 0.5
-AXES_RESET_ON_SUCCESS = False
-AXES_LOCKOUT_PARAMETERS = [["username", "ip_address"]]
+# AXES_FAILURE_LIMIT = 5
+# AXES_COOLOFF_TIME = 0.5
+# AXES_LOCKOUT_PARAMETERS = ["username"]
 
 ROOT_URLCONF = 'csb2025project.urls'
 

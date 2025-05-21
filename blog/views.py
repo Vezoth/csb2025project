@@ -157,21 +157,26 @@ def deletecomment(request, blogpk):
     comment = get_object_or_404(Comment, pk=commentpk)
     if request.user != comment.author:
         raise PermissionDenied
+    
     confirm = request.GET.get('confirm')
-    print(commentpk)
-    print(confirm)
     if confirm is not None:
         comment.delete()
-        print("here")
         return redirect('postview', blogpk=blogpk)
+    
+    #if request.method == "POST":
+    #    confirm = request.POST.get(confirm)
+    #    if confirm:
+    #        comment.delete()
+    #        return redirect('postview', blogpk=blogpk)
+        
 
     return render(request, 'blog/confirmdelete.html', {'blogpost': blogpost, 'comment' : comment})
 
 
 def problems_in_blog(blog):
     errors = []
-    if len(blog.title) < 3:
-        errors.append('Title must be at least 3 characters.')
+    if len(blog.title.strip()) < 3:
+        errors.append('Title must be at least 3 characters long.')
     if len(blog.content) < 10:
-        errors.append('Content must be at least 10 characters')
+        errors.append('Content must be at least 10 characters long.')
     return errors
