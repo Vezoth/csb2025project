@@ -15,8 +15,10 @@
     {% endif %}
     <input type="submit" value="Save"/>
 </form>
-{%if error %}
-<p>{{error}}</p>
+{%if errors %}
+    {% for error in errors %}
+    <p class="error">{{error}}</p>
+    {% endfor %}
 {% endif %}
 
 {% endblock %}

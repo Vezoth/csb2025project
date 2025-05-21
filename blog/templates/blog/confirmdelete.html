@@ -2,12 +2,15 @@
 {% block title %} Delete comment - Blog {% endblock %}
 {% block content %}
 <form method="GET">
-    <p>Are you sure you want to delete the comment:</p>
-    <p>{{comment.content}}</p>
+    <!--{% csrf_token %}-->
+    <p id="verifydelete">Are you sure you want to delete the comment:</p>
+    <p id="disappearingcomment">{{comment.content}}</p>
     <p>on the post "{{blogpost.title}}" by {{blogpost.author}}</p>
     <input type="hidden" name="confirm" value="true">
     <input type="hidden" name="delc" value="{{comment.pk}}">
-    <input type="submit" value="Yes, delete" class="deletechoice">
-    <a href="{% url 'postview' blogpost.pk %}" class="deletechoice">No, go back</a>
+    <div id="deletechoices">
+        <input type="submit" value="Yes, delete" class="deletechoice">
+        <a href="{% url 'postview' blogpost.pk %}" class="deletechoice">No, go back</a>
+    </div>
 </form>
 {% endblock %}

@@ -1,0 +1,283 @@
+body {
+    background-color: #808080;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    padding-top: 60px;
+}
+nav {
+    background-color: #555555;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin: 0;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    z-index: 1000;
+}
+nav a, nav p{
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 0;
+}
+nav a:hover {
+    background-color: rgb(167, 154, 83);
+}
+h1,h2 {
+    color: #ffffff;
+    font-size: 2em;
+}
+#newpost {
+    color: black;
+    text-decoration: none;
+    background-color: #555555;
+    padding: 10px;
+    border-radius: 10px;
+}
+#searchpost {
+    color: black;
+    background-color: #555555;
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    max-width: 10%;
+    align-items: center;
+    margin: auto;
+}
+#searchpost input {
+    width: 100%;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin: 0.5em;
+}
+ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+ul li {
+    background-color: #555555;
+    color: white;
+    padding: 0.2em;
+    margin: 5px;
+    border-radius: 10px;
+    min-width: 30vw;
+}
+main {
+    background-color: #555555;
+    color: white;
+    padding: 0.2em;
+    margin: 5px auto;
+    border-radius: 10px;
+    width: 50%;
+    display: flex;
+    justify-content: left;
+    flex-direction: column;
+}
+#blogcontent {
+    text-align: left;
+    padding: 0.2em;
+}
+main>div {
+    color: #c6c6ff;
+    text-decoration: none;
+    display: flex;
+    justify-content: right;
+    flex-direction: row;
+    align-items: center;
+    margin-left: auto;
+}
+main>div a {
+    margin: 0.2em;
+    padding: 0.2em;
+    border-radius: 10px;
+    color: #c6c6ff;
+}
+#editpost {
+    text-decoration: none;
+    width: 4em;
+}
+#editpost:hover {
+    background-color: green;
+}
+#deletepost {
+    width: 4em;
+    text-decoration: none;
+}
+#deletepost:hover {
+    background-color: red;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+textarea {
+    width: 50em;
+    height: 10em;
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    margin: 0.5em;
+}
+form input[type="submit"] {
+    background-color: #555555;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+form input[type="submit"]:hover {
+    background-color: rgb(167, 154, 83);
+}
+.comment {
+    background-color: #555555;
+    color: white;
+    padding: 0.2em;
+    margin: 0.5em auto;
+    border-radius: 10px;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: left;
+}
+.commentinfo {
+    color: #c6c6ff;
+}
+.deletecomment {
+    color: #1e1e25;
+    text-decoration: none;
+    background-color: gray;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: left;
+    width: fit-content;
+    margin-left: auto;
+    font-size: small;
+}
+.deletecomment:hover {
+    background-color: red;
+    color: #c6c6ff;
+}
+form input[type="text"] {
+    margin-bottom: 1em;
+}
+form label {
+    margin:0.5em;
+}
+#deletechoices {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+}
+.deletechoice {
+    width: 10em;
+    height: 3em;
+    margin: 2em;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #555555;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: small;
+    box-sizing: border-box;
+    display: inline-block;
+    text-decoration: none;
+}
+.deletechoice:hover {
+    background-color: rgb(167, 154, 83);
+}
+.login {
+    display: grid;
+    grid-template-columns: 2fr 2fr;
+    gap: 1em 1em;
+    width: 20em;
+    margin: auto;
+    margin-top: 2em;
+    padding: 2em;
+    background-color: #555555;
+    border-radius: 10px;
+    align-items: center;
+}
+.login div {
+    display:contents
+}
+.login div:first-of-type {
+    margin-top: 2em;
+}
+.login>div>input[type="text"] {
+    margin: 0;
+}
+.login input[type="submit"] {
+    margin: 0.5em;
+    grid-column: 1 / span 2;
+}
+.register {
+    display: grid;
+    grid-template-columns: 2fr 2fr;
+    gap: 1em 1em;
+    width: 20em;
+    margin: auto;
+    margin-top: 2em;
+    padding: 2em;
+    background-color: #555555;
+    border-radius: 10px;
+    align-items: center;
+}
+.register div {
+    display:contents
+}
+.register input[type="text"] {
+    margin: 0;
+}
+.register>input[type="submit"] {
+    display: flex;
+    align-self: center;
+    justify-self: center;
+    width: 100%;
+    margin-top: 1em;
+    grid-row: 4;
+    grid-column: 1 / span 2;
+}
+.username {
+    color: rgb(139, 166, 255);
+    
+}
+#updatepass {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 1em 1em;
+    width: 20em;
+    margin: auto;
+    margin-top: 2em;
+    padding: 2em;
+    background-color: #555555;
+    border-radius: 10px;
+    align-items: center;
+}
+#updatepass input[type="submit"] {
+    grid-row: 3;
+    grid-column: 1 / span 2;
+}
+.error {
+    color: rgb(143, 14, 14);
+    font-weight: bold;
+}

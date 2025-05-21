@@ -2,10 +2,10 @@
 {% block title %} Frontpage - Blog {% endblock %}
 {% block content %}
 <h1>Front page</h1>
-<a href="{% url 'newpost'%}">Create new post</a>
+<a href="{% url 'newpost'%}" id="newpost">Create new post</a>
 <h2>Posts:</h2>
-<form action="" method="GET">
-    <label for="search">Search article:</label>
+<form action="" method="GET" id="searchpost">
+    <label for="search">Search for article:</label>
     <input type="text" name="search" id="search" />
     <input type="submit" value="Search" />
 </form>
@@ -14,7 +14,7 @@
         <li>
             <ul>
                 <li><a href="{% url 'postview' post.pk %}">{{post.title}}</a></li>
-                <li>{{post.author}}</li>
+                <li><span class="username">{{post.author}}</span></li>
                 <li>{{post.created}}</li>
             </ul>
         </li>

@@ -3,19 +3,20 @@
 {% block content %}
 <main>
     <h1>{{blogpost.title}}</h1>
-    <p>{{blogpost.content}}</p>
-    <p>by {{blogpost.author}}</p>
+    <p id="blogcontent">{{blogpost.content}}</p>
+    <p>by <span class="username">{{blogpost.author}}</span></p>
     <p>Posted on {{blogpost.created}}</p>
     {% if user == blogpost.author %}
-    <a href="{% url 'editpost' blogpost.pk %}" id="editpost">Edit post</a>
-    <a href="{% url 'deletepost' blogpost.pk %}" id="deletepost">Delete post</a>
+    <div>
+        <a href="{% url 'editpost' blogpost.pk %}" id="editpost">Edit</a>
+        <a href="{% url 'deletepost' blogpost.pk %}" id="deletepost">Delete</a>
+    </div>
     {% endif %}
-    <dialog>
-        <button autofocus>Cancel</button>
-        <button>Delete</button>
-    </dialog>
-
 </main>
+<dialog>
+    <button autofocus>Cancel</button>
+    <button>Delete</button>
+</dialog>
 {% if user.is_authenticated %}
 <form action="" method="POST">
     {% csrf_token %}
@@ -27,11 +28,11 @@
 {% endif %}
 <div>
     {% for comment in comments %}
-    <div>
-        <p>{{comment.author}} commented on {{comment.created}}:</p>
-        <p>{{comment.content}}</p>
+    <div class="comment">
+        <p class="commentinfo"><span class="username">{{comment.author}}</span> commented on {{comment.created}}:</p>
+        <p class="commentcontent">{{comment.content}}</p>
         {% if user == comment.author %}
-        <a href="{% url 'deletecomment' blogpost.pk %}?delc={{comment.pk}}">Delete comment</a>
+        <a href="{% url 'deletecomment' blogpost.pk %}?delc={{comment.pk}}" class="deletecomment">Delete</a>
         {% endif %}
     </div>
     {% endfor %}
