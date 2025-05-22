@@ -1,12 +1,11 @@
-from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import BlogPost, Comment
 from django.db import connection
 from django.contrib.auth import logout, login
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ValidationError, PermissionDenied
 from django.contrib.auth.decorators import login_required
-from django.core.exceptions import PermissionDenied
 
 # Create your views here.
 def index(request):
@@ -40,7 +39,7 @@ def settings(request):
     if request.method == 'POST':
         # oldpassword = request.POST.get('oldpassword', '')
         # if not request.user.check_password(oldpassword):
-        #    return render(request, 'blog/usersettings.html', {'error': 'Old password is incorrect.'})
+        #    return render(request, 'blog/usersettings.html', {'error': ['Old password is incorrect.']})
         newpassword = request.POST.get('newpassword', '')
         if not newpassword:
             return render(request, 'blog/usersettings.html', {'error' : 'New password is invalid.'})
@@ -51,7 +50,8 @@ def settings(request):
         user = request.user
         user.set_password(newpassword)
         user.save()
-        return render(request, 'blog/usersettings.html', {'msg' : 'Password has bee updated.'})
+        login(request, user)
+        return render(request, 'blog/usersettings.html', {'msg' : 'Password has been updated.'})
     return render(request, 'blog/usersettings.html')
 
 def register(request):
@@ -138,17 +138,19 @@ def editpost(request, blogpk):
 @login_required
 def newpost(request):
     errors = []
+    title = ''
+    content = ''
     if request.method == 'POST':
         title = request.POST['title']
         content = request.POST['content'] 
         blogpost = BlogPost(title=title, content=content, author=request.user)
         # errors = problems_in_blog(blogpost)
         # if not errors:
-        #     blogpost.save()
-        #     return redirect('postview', blogpk=blogpost.pk)
+        #    blogpost.save()
+        #    return redirect('postview', blogpk=blogpost.pk)
         blogpost.save()
         return redirect('postview', blogpk=blogpost.pk)
-    return render(request, 'blog/neweditblog.html', {'errors' : errors})
+    return render(request, 'blog/neweditblog.html', {'errors' : errors, 'title' : title, 'content' : content})
 
 @login_required
 def deletecomment(request, blogpk):
@@ -168,7 +170,6 @@ def deletecomment(request, blogpk):
     #    if confirm:
     #        comment.delete()
     #        return redirect('postview', blogpk=blogpk)
-        
 
     return render(request, 'blog/confirmdelete.html', {'blogpost': blogpost, 'comment' : comment})
 

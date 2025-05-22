@@ -15,7 +15,9 @@
     <p class="msg">{{msg}}</p>
     {% endif%}
     {% if error %}
-    <p class="error">{{error}}</p>
+    {% for e in error %}
+        <p class="error">{{e}}</p>
+    {% endfor %}
     {% endif%}
 </form>
 {% endblock %}

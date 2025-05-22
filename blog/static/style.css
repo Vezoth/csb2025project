@@ -49,7 +49,7 @@ h1,h2 {
     display: flex;
     justify-content: center;
     flex-direction: column;
-    max-width: 10%;
+    width: 33vw;
     align-items: center;
     margin: auto;
 }

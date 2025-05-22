@@ -9,9 +9,9 @@
     <label for="content">Post content:</label>
     <textarea required name="content" id="content">{{blogpost.content}}</textarea>
     {% else %}
-    <input type="text" required name="title" id="title" placeholder="Blog title" />
+    <input type="text" required name="title" id="title" placeholder="Blog title" value="{{title}}"/>
     <label for="content">Post content:</label>
-    <textarea required name="content" id="content"></textarea>
+    <textarea required name="content" id="content">{{content}}</textarea>
     {% endif %}
     <input type="submit" value="Save"/>
 </form>
