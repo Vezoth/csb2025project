@@ -14,6 +14,8 @@ Once django is installed, you can start the project by running the following com
 > python manage.py runserver
 
 ## Account credentials:
-admin - cybersecuritybasemooc
-alice - inwonderland
-bob - squarepants
+| Username | Password            |
+|----------|---------------------|
+| admin    | cybersecuritybasemooc |
+| alice    | inwonderland        |
+| bob      | squarepants         |
